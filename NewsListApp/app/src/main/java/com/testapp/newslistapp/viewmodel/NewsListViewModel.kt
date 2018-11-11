@@ -5,9 +5,16 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableBoolean
 import com.testapp.newslistapp.data.NewsDetail
+import com.testapp.newslistapp.repository.NewsRepository
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.observers.DisposableObserver
+import io.reactivex.schedulers.Schedulers
 
-class NewsListViewModel : ViewModel() {
+class NewsListViewModel(private var newsRepository: NewsRepository) : ViewModel() {
+
     private val _newsList = MutableLiveData<List<NewsDetail>>()
+    private val compositeDisposable = CompositeDisposable()
 
     val isLoading = ObservableBoolean(false)
 
@@ -17,10 +24,22 @@ class NewsListViewModel : ViewModel() {
 
     fun loadNewsList() {
         isLoading.set(true)
-        var detail = NewsDetail("Beavers",
-                "Beavers are second only to humans in their ability to manipulate and change their environment. They can measure up to 1.3 metres long. A group of beavers is called a colony",
-                "http://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/American_Beaver.jpg/220px-American_Beaver.jpg")
-        _newsList.value = listOf(detail, detail, detail)
+        compositeDisposable.add(newsRepository.getNews()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread()).subscribeWith(object : DisposableObserver<List<NewsDetail>>() {
+
+                    override fun onError(e: Throwable) {
+                        //if some error happens in our data layer our app will not crash
+                    }
+
+                    override fun onNext(data: List<NewsDetail>) {
+                        _newsList.value = data
+                    }
+
+                    override fun onComplete() {
+                        isLoading.set(false)
+                    }
+                }))
         isLoading.set(false)
     }
 
