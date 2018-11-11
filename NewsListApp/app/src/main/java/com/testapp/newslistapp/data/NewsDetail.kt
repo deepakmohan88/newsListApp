@@ -1,9 +1,12 @@
 package com.testapp.newslistapp.data
 
-import java.io.Serializable
+import com.google.gson.annotations.SerializedName
 
 data class NewsDetail(
+        @SerializedName("title")
         val title: String,
+        @SerializedName("description")
         val description: String,
-        val imageUrl: String
-):Serializable
+        @SerializedName("imageHref")
+        val imageHref: String
+)

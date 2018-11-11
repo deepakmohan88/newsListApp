@@ -37,7 +37,13 @@ class NewsListFragment : DaggerFragment() {
         binding.newsListRv.layoutManager = LinearLayoutManager(activity)
         binding.newsListRv.adapter = recipeListAdapter
         binding.executePendingBindings()
+
+        initTitle()
         initNewsList()
+    }
+
+    private fun initTitle() {
+        newsListViewModel.title.observe(this, Observer { it?.let { activity?.setTitle(it) } })
     }
 
     private fun initNewsList() {

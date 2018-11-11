@@ -29,8 +29,8 @@ class NewsRecyclerViewAdapter(private var items: ArrayList<NewsDetail>)
     class ViewHolder(private var binding: NewsListItemBinding) :
             RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(recipe: NewsDetail) {
-            binding.newsDetail = recipe
+        fun bind(newsDetail: NewsDetail) {
+            binding.newsDetail = newsDetail
             binding.executePendingBindings()
         }
     }

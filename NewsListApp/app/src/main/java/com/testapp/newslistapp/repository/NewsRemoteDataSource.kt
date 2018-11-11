@@ -1,13 +1,13 @@
 package com.testapp.newslistapp.repository
 
-import com.testapp.newslistapp.data.NewsDetail
 import com.testapp.newslistapp.service.NewsResponse
+import com.testapp.newslistapp.service.NewsService
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class NewsRepository @Inject constructor(var remoteDataSource: NewsRemoteDataSource) {
+class NewsRemoteDataSource @Inject constructor(val recipeService: NewsService) {
 
     fun getNews(): Observable<NewsResponse> {
-        return remoteDataSource.getNews()
+        return recipeService.getNews()
     }
 }

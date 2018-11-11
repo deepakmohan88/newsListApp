@@ -29,6 +29,7 @@
                 android:layout_height="wrap_content"
                 android:text='@{newsDetail.title ?? ""}'
                 style="@style/TextTitle"
+                android:paddingEnd="@dimen/description_margin"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="News title"/>
@@ -40,6 +41,7 @@
                 android:src="@mipmap/ic_launcher"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/news_title"
+                android:visibility='@{newsDetail.imageHref == null ? View.GONE : View.VISIBLE}'
                 tools:src="@mipmap/ic_launcher"/>
 
             <TextView
