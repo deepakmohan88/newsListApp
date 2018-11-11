@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="newsDetail"
+            type="com.testapp.newslistapp.data.NewsDetail"/>
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_margin"
+        android:background="@color/colorPrimary">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/card_margin">
+
+            <TextView
+                android:id="@+id/news_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{newsDetail.title}"
+                style="@style/TextTitle"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="News title"/>
+
+            <ImageView
+                android:id="@+id/news_image"
+                android:layout_width="@dimen/news_image_size"
+                android:layout_height="@dimen/news_image_size"
+                android:src="@mipmap/ic_launcher"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/news_title"
+                tools:src="@mipmap/ic_launcher"/>
+
+            <TextView
+                android:id="@+id/news_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{newsDetail.description}"
+                style="@style/TextDescription"
+                app:layout_constraintTop_toBottomOf="@id/news_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/news_image"
+                tools:text="News title"/>
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.CardView>
+</layout>
