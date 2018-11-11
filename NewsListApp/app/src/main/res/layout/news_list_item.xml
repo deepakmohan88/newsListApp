@@ -42,7 +42,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/news_title"
                 android:visibility='@{newsDetail.imageHref == null ? View.GONE : View.VISIBLE}'
-                tools:src="@mipmap/ic_launcher"/>
+                tools:src="@mipmap/ic_launcher"
+                app:imageUrl='@{newsDetail.imageHref}'/>
 
             <TextView
                 android:id="@+id/news_description"
