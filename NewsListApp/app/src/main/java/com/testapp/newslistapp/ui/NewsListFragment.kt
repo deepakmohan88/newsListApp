@@ -7,6 +7,11 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import com.testapp.newslistapp.R
+import com.testapp.newslistapp.data.NewsDetail
+import com.testapp.newslistapp.data.Resource
+import com.testapp.newslistapp.data.Status
 import com.testapp.newslistapp.databinding.NewsListFragmentBinding
 import com.testapp.newslistapp.ui.adapter.NewsRecyclerViewAdapter
 import com.testapp.newslistapp.viewmodel.MainViewModelFactory
@@ -47,7 +52,18 @@ class NewsListFragment : DaggerFragment() {
     }
 
     private fun initNewsList() {
-        newsListViewModel.newsList.observe(this, Observer { it?.let { recipeListAdapter.replaceData(it) } })
+        newsListViewModel.newsList.observe(this, Observer { it?.let { showNewsListState(it) } })
         newsListViewModel.loadNewsList()
+    }
+
+    private fun showNewsListState(newsDataResource : Resource<List<NewsDetail>>) {
+        when(newsDataResource.status) {
+            Status.SUCCESS -> newsDataResource?.data?.let { recipeListAdapter.replaceData(it) }
+            Status.ERROR -> showErrorToast()
+        }
+    }
+
+    private fun showErrorToast(){
+        Toast.makeText(activity, getString(R.string.error_loading_data), Toast.LENGTH_SHORT).show()
     }
 }

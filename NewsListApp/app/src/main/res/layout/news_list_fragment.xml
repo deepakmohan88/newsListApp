@@ -34,7 +34,6 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/white"
                 android:indeterminate="true"
-                android:visibility="@{viewModel.isLoading ? View.GONE : View.VISIBLE}"
                 tools:listitem="@layout/news_list_item"/>
         </android.support.v4.widget.SwipeRefreshLayout>
 

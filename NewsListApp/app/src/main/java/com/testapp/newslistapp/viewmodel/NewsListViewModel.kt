@@ -5,6 +5,8 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableBoolean
 import com.testapp.newslistapp.data.NewsDetail
+import com.testapp.newslistapp.data.Resource
+import com.testapp.newslistapp.data.Status
 import com.testapp.newslistapp.repository.NewsRepository
 import com.testapp.newslistapp.service.NewsResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -14,7 +16,7 @@ import io.reactivex.schedulers.Schedulers
 
 class NewsListViewModel(private var newsRepository: NewsRepository) : ViewModel() {
 
-    private val _newsList = MutableLiveData<List<NewsDetail>>()
+    private val _newsList = MutableLiveData<Resource<List<NewsDetail>>>()
     private val _title = MutableLiveData<String>()
     private val compositeDisposable = CompositeDisposable()
 
@@ -22,23 +24,25 @@ class NewsListViewModel(private var newsRepository: NewsRepository) : ViewModel(
     val title: LiveData<String>
         get() = _title
 
-    val newsList: LiveData<List<NewsDetail>>
+    val newsList: LiveData<Resource<List<NewsDetail>>>
         get() = _newsList
 
     fun loadNewsList() {
         isLoading.set(true)
+        _newsList.value = Resource.loading(null)
         compositeDisposable.add(newsRepository.getNews()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread()).subscribeWith(object : DisposableObserver<NewsResponse>() {
 
                     override fun onError(e: Throwable) {
                         isLoading.set(false)
+                        _newsList.value = Resource.error(null)
                     }
 
                     override fun onNext(data: NewsResponse) {
                         data?.let {
                             _title.value = it.title
-                            it.items?.let { _newsList.value = it }
+                            it.items?.let { _newsList.value = Resource.success(it) }
                         }
                     }
 
