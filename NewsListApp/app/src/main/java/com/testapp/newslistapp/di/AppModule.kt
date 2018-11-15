@@ -1,7 +1,7 @@
 package com.testapp.newslistapp.di
 
-import android.content.Context
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import com.testapp.newslistapp.AppSchedulers
 import com.testapp.newslistapp.NewsListApp
 import com.testapp.newslistapp.service.NewsService
 import dagger.Module
@@ -14,9 +14,7 @@ import javax.inject.Singleton
 class AppModule {
 
     @Provides
-    fun providesContext(application: NewsListApp): Context {
-        return application.applicationContext
-    }
+    fun providesContext(application: NewsListApp) = application.applicationContext
 
     @Singleton
     @Provides
@@ -28,5 +26,9 @@ class AppModule {
                 .build()
                 .create(NewsService::class.java)
     }
+
+    @Singleton
+    @Provides
+    fun provideAppScheduler() = AppSchedulers()
 
 }

@@ -4,7 +4,9 @@ import com.testapp.newslistapp.service.NewsResponse
 import com.testapp.newslistapp.util.NetManager
 import io.reactivex.Observable
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class NewsRepository @Inject constructor(var netManager: NetManager, var remoteDataSource: NewsRemoteDataSource) {
 
     fun getNews(): Observable<NewsResponse> {

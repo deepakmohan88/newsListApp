@@ -1,5 +1,6 @@
 package com.testapp.newslistapp.di
 
+import com.testapp.newslistapp.AppSchedulers
 import com.testapp.newslistapp.repository.NewsRepository
 import com.testapp.newslistapp.ui.NewsListFragment
 import com.testapp.newslistapp.viewmodel.MainViewModelFactory
@@ -16,9 +17,9 @@ internal abstract class NewsListActivityModule {
 
         @JvmStatic
         @Provides
-        internal fun providesMainViewModelFactory(newRepository: NewsRepository)
+        internal fun providesMainViewModelFactory(newRepository: NewsRepository, schedulers: AppSchedulers)
                 : MainViewModelFactory {
-            return MainViewModelFactory(newRepository)
+            return MainViewModelFactory(newRepository, schedulers)
         }
     }
 
