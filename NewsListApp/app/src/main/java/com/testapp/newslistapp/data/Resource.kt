@@ -1,5 +1,8 @@
 package com.testapp.newslistapp.data
 
+/*
+* Type to share the state of the ViewModel to the ui
+*/
 data class Resource<out T>(val status: Status, val data: T?) {
     companion object {
         fun <T> success(data: T?): Resource<T> {

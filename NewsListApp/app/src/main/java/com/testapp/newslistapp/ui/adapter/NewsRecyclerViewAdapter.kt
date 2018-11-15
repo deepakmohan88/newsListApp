@@ -7,6 +7,9 @@ import com.testapp.newslistapp.data.NewsDetail
 import com.testapp.newslistapp.databinding.NewsListItemBinding
 import java.util.*
 
+/**
+ * Adapter used in the RecyclerView which loads the news data
+ */
 class NewsRecyclerViewAdapter(private var items: ArrayList<NewsDetail>)
     : RecyclerView.Adapter<NewsRecyclerViewAdapter.ViewHolder>() {
 

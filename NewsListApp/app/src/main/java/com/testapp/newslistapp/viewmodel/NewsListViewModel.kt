@@ -12,6 +12,9 @@ import com.testapp.newslistapp.service.NewsResponse
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
 
+/**
+ * ViewModel which provides data streams to the ui
+ */
 class NewsListViewModel(private var newsRepository: NewsRepository, private var schedulers: AppSchedulers) : ViewModel() {
 
     private val _newsList = MutableLiveData<Resource<List<NewsDetail>>>()

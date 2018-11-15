@@ -5,6 +5,9 @@ import android.arch.lifecycle.ViewModelProvider
 import com.testapp.newslistapp.AppSchedulers
 import com.testapp.newslistapp.repository.NewsRepository
 
+/**
+ * Factory for providing the ViewModel with parameters
+ */
 class MainViewModelFactory(private val repository: NewsRepository, private var schedulers: AppSchedulers) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {

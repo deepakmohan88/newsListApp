@@ -4,6 +4,9 @@ import android.databinding.BindingAdapter
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 
+/**
+ * Data Binding adapters specific to the app
+ */
 object ImageBindingAdapter {
 
     @JvmStatic

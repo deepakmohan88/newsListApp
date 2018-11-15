@@ -6,6 +6,9 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 import javax.inject.Singleton
 
+/**
+ * Global scheduler for the whole application.
+ */
 @Singleton
 class AppSchedulers(
         private val ioScheduler: Scheduler,

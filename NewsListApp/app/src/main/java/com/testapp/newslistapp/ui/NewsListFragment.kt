@@ -19,6 +19,9 @@ import com.testapp.newslistapp.viewmodel.NewsListViewModel
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
+/**
+ * Fragment which displays the news data
+ */
 class NewsListFragment : DaggerFragment() {
 
     lateinit var binding: NewsListFragmentBinding

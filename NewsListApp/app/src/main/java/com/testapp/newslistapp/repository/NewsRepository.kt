@@ -6,6 +6,10 @@ import io.reactivex.Observable
 import javax.inject.Inject
 import javax.inject.Singleton
 
+/**
+ * Repository which provides data stream to the ViewModel
+ */
+
 @Singleton
 class NewsRepository @Inject constructor(var netManager: NetManager, var remoteDataSource: NewsRemoteDataSource) {
 
