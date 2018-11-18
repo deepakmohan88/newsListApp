@@ -60,10 +60,8 @@ class NewsListFragment : DaggerFragment() {
     }
 
     private fun showNewsListState(newsDataResource : Resource<List<NewsDetail>>) {
-        when(newsDataResource.status) {
-            Status.SUCCESS -> newsDataResource?.data?.let { recipeListAdapter.replaceData(it) }
-            Status.ERROR -> showErrorToast()
-        }
+        newsDataResource?.data?.let { recipeListAdapter.replaceData(it) }
+        if(newsDataResource.status == Status.ERROR) { showErrorToast() }
     }
 
     private fun showErrorToast(){

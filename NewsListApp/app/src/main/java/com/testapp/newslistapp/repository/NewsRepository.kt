@@ -1,5 +1,6 @@
 package com.testapp.newslistapp.repository
 
+import com.testapp.newslistapp.data.Resource
 import com.testapp.newslistapp.service.NewsResponse
 import com.testapp.newslistapp.util.NetManager
 import io.reactivex.Observable
@@ -13,11 +14,14 @@ import javax.inject.Singleton
 @Singleton
 class NewsRepository @Inject constructor(var netManager: NetManager, var remoteDataSource: NewsRemoteDataSource) {
 
-    fun getNews(): Observable<NewsResponse> {
-        return if (netManager?.isConnectedToInternet == true) {
-            remoteDataSource.getNews()
-        } else {
-            Observable.error(Throwable())
+    fun getNews(): Observable<Resource<NewsResponse>> {
+        netManager.isConnectedToInternet?.let {
+            if (it) {
+                return remoteDataSource.getNews().map {
+                    Resource.success(it)
+                }
+            }
         }
+        return Observable.just(Resource.error(null))
     }
 }

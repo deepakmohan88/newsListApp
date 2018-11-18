@@ -24,7 +24,7 @@ class NewsListViewModelTest {
 
     private val newListRepository = Mockito.mock(NewsRepository::class.java)
     private val testScheduler = TestScheduler()
-    private val appSchedulers = AppSchedulers(testScheduler,testScheduler, testScheduler)
+    private val appSchedulers = AppSchedulers(testScheduler, testScheduler, testScheduler)
     private var repoViewModel = NewsListViewModel(newListRepository, appSchedulers)
     private lateinit var newsResponse: NewsResponse
 
@@ -61,7 +61,7 @@ class NewsListViewModelTest {
 
     @Test
     fun fetchDataErrorWhenObserved() {
-        whenever(newListRepository.getNews()).thenReturn(Observable.error(Throwable()))
+        whenever(newListRepository.getNews()).thenReturn(Observable.just(Resource.error(null)))
         var observer = mock<Observer<Resource<List<NewsDetail>>>>()
         repoViewModel.newsList.observeForever(observer)
         repoViewModel.loadNewsList()
@@ -90,12 +90,12 @@ class NewsListViewModelTest {
         verify(observer, never()).onChanged(any())
     }
 
-    private fun getNewsListObservableWithData() : Observable<NewsResponse>{
+    private fun getNewsListObservableWithData(): Observable<Resource<NewsResponse>>? {
         var newsDetail1 = NewsDetail("Title1", "Description1", "testUrl1")
         var newsDetail2 = NewsDetail("Title2", "Description2", "testUrl2")
         var newsDetail3 = NewsDetail("Title3", "Description3", "testUrl3")
         newsResponse = NewsResponse("Page title", listOf(newsDetail1, newsDetail2, newsDetail3))
-        return Observable.just(newsResponse)
+        return Observable.just(Resource.success(newsResponse))
     }
 
 }
